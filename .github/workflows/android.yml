@@ -22,16 +22,19 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 45
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
-      - uses: actions/setup-java@v4
+      - uses: actions/setup-java@v5
         with:
           distribution: temurin
           java-version: '17'
 
       - uses: android-actions/setup-android@v3
+        with:
+          # O pacote 'tools' (padrão da action) não existe mais no sdkmanager.
+          packages: 'platform-tools'
 
-      - uses: gradle/actions/setup-gradle@v4
+      - uses: gradle/actions/setup-gradle@v5
 
       - name: Verificar projeto
         run: |
@@ -75,7 +78,7 @@ jobs:
             cp app/build/outputs/apk/release/*.apk "dist/gibiflix-0.1.${{ github.run_number }}.apk"
           fi
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v5
         with:
           name: gibiflix-apk
           path: dist/*.apk
