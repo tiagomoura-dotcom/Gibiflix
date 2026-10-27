@@ -1,6 +1,7 @@
 package app.gibiflix
 
 import android.content.Context
+import app.gibiflix.backup.BackupManager
 import app.gibiflix.data.db.GibiflixDatabase
 import app.gibiflix.data.files.LibraryFiles
 import app.gibiflix.data.repo.LibraryRepository
@@ -31,6 +32,7 @@ class AppContainer(context: Context) {
     val importer: ComicImporter by lazy { ComicImporter(appContext, files, db.comics(), packages, settings, deviceProfile) }
     val importCenter = ImportCenter(appContext)
     val sync: SyncRepository by lazy { SyncRepository(appContext, db, files, settings) }
+    val backup: BackupManager by lazy { BackupManager(appContext, this) }
     val prepareScheduler: PrepareScheduler by lazy { PrepareScheduler(appContext) }
 }
 

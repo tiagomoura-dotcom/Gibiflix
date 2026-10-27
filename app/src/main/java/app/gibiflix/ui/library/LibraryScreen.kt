@@ -56,6 +56,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -83,10 +84,12 @@ import app.gibiflix.ui.components.PillTabs
 import app.gibiflix.ui.theme.LocalProfile
 import coil.compose.AsyncImage
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 /** Ações que a biblioteca pede para o resto do app. */
 class LibraryActions(
     val onRead: (String) -> Unit,
+    val onReadAt: (String, Int, Int) -> Unit,
     val onPrepare: (String) -> Unit,
     val onOpenSettings: () -> Unit,
     val onImportDevice: () -> Unit,
@@ -161,11 +164,21 @@ fun LibraryScreen(actions: LibraryActions, vm: LibraryViewModel = viewModel()) {
         )
 
         val onLong: (ComicEntity) -> Unit = { menuFor = it }
+        val scope = rememberCoroutineScope()
+        // Com busca ativa, um quadrinho achado pela fala abre direto no quadro do balão.
+        val open: (ComicEntity) -> Unit = { comic ->
+            val q = state.query
+            if (q.isBlank() || comic.balloonText == null) actions.onRead(comic.id)
+            else scope.launch {
+                val at = vm.locate(comic.id, q)
+                if (at != null) actions.onReadAt(comic.id, at.first, at.second) else actions.onRead(comic.id)
+            }
+        }
         when {
             openSeries != null -> {
                 val items = LibraryViewModel.sortBySeries(state.all.filter { it.series == openSeries })
                 SubHeader(openSeries!!, onBack = { openSeries = null })
-                ComicGrid(items, state, actions, onLong)
+                ComicGrid(items, state, open, onLong)
             }
             openCollection != null -> {
                 val colId = openCollection!!
@@ -173,14 +186,14 @@ fun LibraryScreen(actions: LibraryActions, vm: LibraryViewModel = viewModel()) {
                 val ids by idsFlow.collectAsStateWithLifecycle(emptyList())
                 val name = state.collections.firstOrNull { it.id == openCollection }?.name.orEmpty()
                 SubHeader(name, onBack = { openCollection = null })
-                ComicGrid(state.all.filter { it.id in ids }, state, actions, onLong)
+                ComicGrid(state.all.filter { it.id in ids }, state, open, onLong)
             }
             tab == LibTab.READING -> ComicGrid(
-                state.visible, state, actions, onLong,
+                state.visible, state, open, onLong,
                 header = { state.continueReading?.let { ContinueCard(it, state.progress[it.id], actions.onRead) } },
                 empty = stringResource(R.string.reading_empty),
             )
-            tab == LibTab.ALL -> ComicGrid(state.visible, state, actions, onLong)
+            tab == LibTab.ALL -> ComicGrid(state.visible, state, open, onLong)
             tab == LibTab.SERIES -> SeriesList(state, onOpen = { openSeries = it })
             tab == LibTab.COLLECTIONS -> CollectionsList(state, vm, onOpen = { openCollection = it })
         }
@@ -328,7 +341,7 @@ fun gridColumns(configured: Int, maxWidthDp: Float): Int {
 private fun ComicGrid(
     items: List<ComicEntity>,
     state: LibraryState,
-    actions: LibraryActions,
+    onOpen: (ComicEntity) -> Unit,
     onLong: (ComicEntity) -> Unit,
     header: (@Composable () -> Unit)? = null,
     empty: String? = null,
@@ -354,7 +367,7 @@ private fun ComicGrid(
                 }
             }
             items(items, key = { it.id }) { comic ->
-                ComicCard(comic, state.progress[comic.id], onClick = { actions.onRead(comic.id) }, onLong = { onLong(comic) })
+                ComicCard(comic, state.progress[comic.id], onClick = { onOpen(comic) }, onLong = { onLong(comic) })
             }
         }
     }

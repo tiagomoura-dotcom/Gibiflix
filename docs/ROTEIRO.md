@@ -82,6 +82,14 @@ Uma fase por sessão (ou mais, se for grande). Cada fase termina com um APK inst
 ---
 
 ## Estado atual
-- Fase concluída mais recente: nenhuma.
-- Modelos de aparelho confirmados (`Build.MODEL`): ainda não informados.
-- Pendências e decisões tomadas: —
+- Fase concluída mais recente: **Fase 8** (código de todas as fases 0–8 escrito, `:core:test` passando e o CI compilando o APK). Os critérios de aceite que dependem dos aparelhos (instalar nos três, botões do Boox, refresh, Wi-Fi entre aparelhos, Komga/Kavita real, OCR nos Boox) ainda precisam do teste do dono.
+- Modelos de aparelho confirmados (`Build.MODEL`): ainda não informados. Mande o texto de Ajustes → Diagnóstico → Copiar de cada Boox para completar `KNOWN_COLOR_MODELS` (`core/.../device/Profile.kt`).
+- Pendências e decisões tomadas:
+  - Versões: AGP 8.13.2, Kotlin 2.3.21, Gradle 8.14.3, compileSdk/targetSdk 36. `libarchive` fica na 1.1.6 porque a 1.1.7 exige compileSdk 37 (AGP 9).
+  - O `:app` só entra no build quando há Android SDK (`settings.gradle.kts`), para `./gradlew :core:test` rodar em qualquer JDK.
+  - SDK da Onyx (`onyxsdk-device` 1.3.5.3, repositório `repo.boox.com`) chamado só por reflexão: se faltar ou falhar, o app usa o controle genérico (flash preto). Confirmar no Boox se o Diagnóstico mostra "Controle e-ink: Onyx (SDK)".
+  - Detecção de quadros: além do §5, há um "corte macio" (faixas com ≥ 30% de sarjeta) para separar quadros ligados por balão que atravessa a sarjeta, e colunas com sarjetas alinhadas são lidas linha por linha. Em página dupla, procura primeiro a sarjeta central.
+  - Página sem quadros detectados (sangrada) fica com `panels` vazio e confiança 0,8.
+  - Tradução dos balões: feita na preparação (ML Kit Translation) e gravada em `translations`, escolhida em Ajustes → Preparação → "Traduzir os balões para". Falta testar se o download do modelo funciona nos Boox sem Play Services; se não funcionar, preparar no tablet.
+  - Backup leve guarda as senhas dos servidores só se o dono marcar a opção (ficam legíveis no arquivo).
+  - Chave de assinatura gerada na Fase 0 e entregue ao dono para cadastrar nos Secrets. Sem os Secrets, o APK sai com chave de debug.

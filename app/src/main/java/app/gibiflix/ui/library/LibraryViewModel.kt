@@ -88,6 +88,20 @@ class LibraryViewModel(app: Application) : AndroidViewModel(app) {
 
     fun collectionComics(id: Long) = c.db.collections().observeComicIds(id)
 
+    /** Busca por fala: página e quadro do primeiro balão que contém o texto. */
+    suspend fun locate(comicId: String, query: String): Pair<Int, Int>? {
+        val q = normalize(query.trim())
+        if (q.isEmpty()) return null
+        val doc = c.packages.load(comicId)?.doc ?: return null
+        doc.pages.forEachIndexed { pi, page ->
+            page.panels.forEachIndexed { qi, panel ->
+                val texts = panel.text.orEmpty() + panel.translations.orEmpty().values.flatten()
+                if (texts.any { normalize(it.value).contains(q) }) return pi to qi
+            }
+        }
+        return null
+    }
+
     companion object {
         fun normalize(s: String): String =
             Normalizer.normalize(s, Normalizer.Form.NFD).replace(Regex("\\p{M}+"), "").lowercase()

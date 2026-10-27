@@ -309,4 +309,53 @@
     <string name="share_already_have">Já estava aqui</string>
     <string name="share_download_done">%d quadrinho(s) recebido(s).</string>
     <string name="share_synced">Progresso e marcadores sincronizados (%d mudanças).</string>
+
+    <!-- OPDS -->
+    <string name="server_add">Adicionar servidor</string>
+    <string name="server_edit">Editar servidor</string>
+    <string name="servers_empty">Nenhum servidor cadastrado.</string>
+    <string name="servers_help">Komga costuma ser http://&lt;ip&gt;:25600/opds/v1.2/catalog. O Kavita mostra a URL OPDS (com a chave da API) no perfil do usuário.</string>
+    <string name="server_name">Nome</string>
+    <string name="server_url">URL do catálogo OPDS</string>
+    <string name="server_user">Usuário (opcional)</string>
+    <string name="server_password">Senha (opcional)</string>
+    <string name="server_password_keep">Senha (deixe vazio para manter)</string>
+    <string name="opds_search_hint">Buscar no servidor</string>
+    <string name="opds_error">Não foi possível abrir: %1$s</string>
+    <string name="opds_more">Carregar mais</string>
+    <string name="opds_download">Baixar</string>
+    <string name="opds_downloaded">Na biblioteca</string>
+    <string name="opds_imported">%1$s entrou na biblioteca</string>
+
+    <!-- Marcadores, estatísticas e backup -->
+    <string name="bookmarks_empty">Nenhum marcador. No leitor, toque no meio da tela e no ícone de marcador.</string>
+    <string name="bookmark_position">Página %1$d · quadro %2$d</string>
+    <string name="bookmark_note">Nota</string>
+    <string name="bookmark_add_title">Marcar este quadro</string>
+    <string name="bookmark_remove">Remover marcador</string>
+    <string name="bookmarks_of_comic">Marcadores deste quadrinho</string>
+    <string name="stats_week">Semana</string>
+    <string name="stats_month">Mês</string>
+    <string name="stats_streak">Sequência</string>
+    <string name="stats_days">%d dias</string>
+    <string name="stats_finished_per_month">Quadrinhos concluídos por mês</string>
+    <string name="stats_total_per_comic">Tempo por quadrinho</string>
+    <string name="stats_total">Total: %1$s em %2$d sessões</string>
+    <string name="backup_light_hint">O backup leve guarda progresso, marcadores, coleções, estatísticas, ajustes e servidores. É pequeno e rápido.</string>
+    <string name="backup_last">Último backup: %1$s</string>
+    <string name="backup_never">Nenhum backup feito ainda.</string>
+    <string name="backup_full">Backup completo</string>
+    <string name="backup_full_hint">Inclui todos os pacotes (pode ficar grande)</string>
+    <string name="backup_passwords">Incluir senhas dos servidores</string>
+    <string name="backup_passwords_hint">Ficam legíveis dentro do arquivo de backup</string>
+    <string name="backup_create">Fazer backup</string>
+    <string name="backup_restore">Restaurar de um arquivo</string>
+    <string name="backup_done">Backup salvo.</string>
+    <string name="backup_failed">Não deu certo: %1$s</string>
+    <string name="restore_done">Restaurado: %1$d progressos, %2$d marcadores, %3$d coleções, %4$d sessões, %5$d quadrinhos.</string>
+    <string name="backup_reminder">Lembrete semanal</string>
+    <string name="backup_reminder_hint">Avisa para fazer o backup leve</string>
+    <string name="backup_reminder_title">Hora do backup do Gibiflix</string>
+    <string name="backup_reminder_text">Faça o backup leve para guardar progresso, marcadores e coleções.</string>
+    <string name="reader_translation">Tradução</string>
 </resources>

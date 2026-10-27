@@ -38,6 +38,11 @@ import app.gibiflix.container
 import app.gibiflix.reader.ReaderActivity
 import app.gibiflix.ui.components.TopBar
 import app.gibiflix.ui.editor.EditorScreen
+import app.gibiflix.ui.more.BackupScreen
+import app.gibiflix.ui.more.BookmarksScreen
+import app.gibiflix.ui.more.StatsScreen
+import app.gibiflix.ui.opds.OpdsBrowserScreen
+import app.gibiflix.ui.opds.ServersScreen
 import app.gibiflix.ui.library.LibraryActions
 import app.gibiflix.ui.library.LibraryScreen
 import app.gibiflix.ui.settings.DiagnosticsScreen
@@ -55,6 +60,7 @@ sealed interface Route {
     data object Diagnostics : Route
     data object ImageSettings : Route
     data object Servers : Route
+    data class Opds(val serverId: Long) : Route
     data object Stats : Route
     data object Backup : Route
     data object Bookmarks : Route
@@ -87,10 +93,11 @@ fun AppRoot() {
         when (top) {
             Route.Diagnostics -> DiagnosticsScreen(onBack = back)
             Route.ImageSettings -> ImageSettingsScreen(onBack = back)
-            Route.Servers -> Placeholder(back)
-            Route.Stats -> Placeholder(back)
-            Route.Backup -> Placeholder(back)
-            Route.Bookmarks -> Placeholder(back)
+            Route.Servers -> ServersScreen(onBack = back, onOpen = { nav.push(Route.Opds(it)) })
+            is Route.Opds -> OpdsBrowserScreen(top.serverId, onBack = back)
+            Route.Stats -> StatsScreen(onBack = back)
+            Route.Backup -> BackupScreen(onBack = back)
+            Route.Bookmarks -> BookmarksScreen(onBack = back)
             is Route.Editor -> EditorScreen(top.comicId, onBack = back, onSendToBoox = { nav.stack.clear(); shareSend = true; tab = Tab.SHARE })
         }
     } else {
@@ -104,6 +111,7 @@ fun AppRoot() {
                     Tab.LIBRARY -> LibraryScreen(
                         LibraryActions(
                             onRead = { id -> openComic(context, id) },
+                            onReadAt = { id, page, panel -> openComic(context, id, page, panel) },
                             onPrepare = { id -> nav.push(Route.Editor(id)) },
                             onOpenSettings = { tab = Tab.SETTINGS },
                             onImportDevice = { tab = Tab.SHARE },
@@ -141,11 +149,6 @@ fun AppRoot() {
 
 fun openComic(context: Context, id: String, page: Int = -1, panel: Int = -1) {
     context.startActivity(ReaderActivity.intent(context, id, page, panel))
-}
-
-@Composable
-private fun Placeholder(onBack: () -> Unit) {
-    Column(Modifier.fillMaxSize()) { TopBar(stringResource(R.string.coming_soon), onBack = onBack) }
 }
 
 @Composable

@@ -53,7 +53,15 @@ Se o check ficar vermelho: abra a aba **Actions**, entre no build que falhou, co
 
 Primeira abertura em cada Boox: confirme se a tela é colorida ou preto e branco. Depois abra **Ajustes → Diagnóstico**, toque em **Copiar** e cole no Claude Code para ele registrar o modelo do aparelho.
 
-## 7. Dicas
+## 7. Usar os recursos
+- **Importar**: botão **+** na Biblioteca (arquivos, pasta inteira, outro aparelho ou servidor OPDS), ou "Abrir com"/"Compartilhar" a partir de outro app.
+- **Preparar**: toque longo num quadrinho → **Preparar quadros**. No tablet a preparação começa sozinha ao importar; nos Boox o app pergunta.
+- **Revisar**: no editor, use **Só as que precisam de revisão** e **Aprovar e ir para a próxima**.
+- **Mandar para os Boox**: no tablet, editor → **Enviar para o Boox** (ou Compartilhar → Enviar deste aparelho). No Boox: Compartilhar → Receber de outro aparelho, escolha o tablet e digite o código de 6 dígitos. Os dois aparelhos precisam estar na mesma rede Wi-Fi.
+- **Servidor Komga/Kavita**: Ajustes → Servidores OPDS → **+**.
+- **Backup**: Ajustes → Backup. O leve é pequeno; faça de vez em quando.
+
+## 8. Dicas
 - Teste cada fase nos três aparelhos e conte ao Claude Code o que achou, em linguagem normal ("no Go 7 a imagem ficou clara demais").
 - Mudanças pequenas não precisam esperar uma fase: peça direto ("deixe o botão Continuar maior").
 - Se o Boox estiver com fantasmas na tela, ajuste primeiro em Ajustes → Tela e-ink dentro do Gibiflix, antes de mexer nas otimizações da Onyx.

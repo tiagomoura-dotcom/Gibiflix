@@ -58,6 +58,7 @@ data class ReaderUi(
     val camera: Camera? = null,
     val bookmarked: Boolean = false,
     val text: List<TextBlock>? = null,
+    val translation: List<TextBlock>? = null,
     val showText: Boolean = false,
     val endReached: Boolean = false,
 )
@@ -79,6 +80,7 @@ class ReaderViewModel(app: Application, saved: SavedStateHandle) : AndroidViewMo
     private var screen: Screen? = null
     private var nav: Navigator? = null
     private var reader = ReaderSettings()
+    private var translateTo: String? = null
     private var profileSettings: ProfileSettings = ProfileDefaults.of(c.deviceProfile.profile)
     private var profile: Profile = c.deviceProfile.profile
     private var mode: ReadMode = ReadMode.PANEL
@@ -108,6 +110,7 @@ class ReaderViewModel(app: Application, saved: SavedStateHandle) : AndroidViewMo
             c.settings.user.collect { u ->
                 val old = profileSettings
                 reader = u.reader
+                translateTo = u.prepare.translateTo
                 profile = c.deviceProfile.profile
                 profileSettings = u.forProfile(profile)
                 pageCache.limitBytes = profileSettings.cacheMb.toLong() * 1024 * 1024
@@ -347,7 +350,10 @@ class ReaderViewModel(app: Application, saved: SavedStateHandle) : AndroidViewMo
                 return@launch
             }
             val page = d.pages[view.page]
-            val blocks = page.panels.getOrNull(view.panelIndex)?.text
+            val panel = page.panels.getOrNull(view.panelIndex)
+            val blocks = panel?.text ?: if (view.panelIndex < 0) page.panels.flatMap { it.text.orEmpty() }.ifEmpty { null } else null
+            val lang = translateTo
+            val translated = if (lang != null) panel?.translations?.get(lang) else null
             _ui.update {
                 it.copy(
                     loading = false,
@@ -357,6 +363,7 @@ class ReaderViewModel(app: Application, saved: SavedStateHandle) : AndroidViewMo
                     frame = frame,
                     viewsOnPage = n.views(pos.page).size,
                     text = blocks,
+                    translation = translated,
                     bookmarked = false,
                 )
             }
@@ -431,6 +438,17 @@ class ReaderViewModel(app: Application, saved: SavedStateHandle) : AndroidViewMo
     }
 
     // ---- Marcadores ----
+    val bookmarks = c.db.bookmarks().observeFor(comicId)
+
+    fun removeBookmark() = viewModelScope.launch {
+        val v = _ui.value.view ?: return@launch
+        val panel = v.panelIndex.coerceAtLeast(0)
+        c.db.bookmarks().observeFor(comicId).first().filter { it.page == v.page && it.panel == panel }.forEach {
+            c.db.bookmarks().upsert(it.copy(deleted = true, updatedAt = System.currentTimeMillis(), deviceId = deviceId))
+        }
+        _ui.update { it.copy(bookmarked = false) }
+    }
+
     fun toggleBookmark(note: String = "") = viewModelScope.launch {
         val v = _ui.value.view ?: return@launch
         val panel = v.panelIndex.coerceAtLeast(0)

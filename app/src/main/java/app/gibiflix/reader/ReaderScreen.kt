@@ -153,7 +153,11 @@ fun ReaderScreen(vm: ReaderViewModel, onExit: () -> Unit) {
             ReaderMenu(vm, ui, onExit)
         }
         if (ui.showText && !ui.text.isNullOrEmpty()) {
-            TextOverlay(ui.text!!.joinToString("\n\n") { it.value }, onClose = { vm.toggleText() })
+            TextOverlay(
+                ui.text!!.joinToString("\n\n") { it.value },
+                ui.translation?.joinToString("\n\n") { it.value },
+                onClose = { vm.toggleText() },
+            )
         }
         if (flash) Box(Modifier.fillMaxSize().background(Color.Black))
     }
@@ -272,6 +276,37 @@ private fun ReaderMenu(vm: ReaderViewModel, ui: ReaderUi, onExit: () -> Unit) {
     val eink = LocalProfile.current.isEink
     val surface = MaterialTheme.colorScheme.surface
     var sliderPage by remember(ui.pos.page) { mutableFloatStateOf(ui.pos.page.toFloat()) }
+    var noteDialog by remember { mutableStateOf(false) }
+    var marksDialog by remember { mutableStateOf(false) }
+    if (noteDialog) {
+        app.gibiflix.ui.library.TextInputDialog(
+            title = stringResource(R.string.bookmark_add_title),
+            label = stringResource(R.string.bookmark_note),
+            initial = "",
+            confirm = stringResource(R.string.save),
+            onDismiss = { noteDialog = false },
+            onConfirm = { noteDialog = false; vm.toggleBookmark(it) },
+        )
+    }
+    if (marksDialog) {
+        val marks by vm.bookmarks.collectAsStateWithLifecycle(emptyList())
+        AlertDialog(
+            onDismissRequest = { marksDialog = false },
+            title = { Text(stringResource(R.string.bookmarks_of_comic)) },
+            text = {
+                Column(Modifier.verticalScroll(rememberScrollState())) {
+                    if (marks.isEmpty()) Text(stringResource(R.string.bookmarks_empty))
+                    marks.forEach { b ->
+                        Column(Modifier.fillMaxWidth().clickable { marksDialog = false; vm.hideMenu(); vm.goTo(b.page, b.panel) }.padding(vertical = 10.dp)) {
+                            Text(stringResource(R.string.bookmark_position, b.page + 1, b.panel + 1), style = MaterialTheme.typography.titleSmall)
+                            if (b.note.isNotBlank()) Text(b.note, style = MaterialTheme.typography.bodyMedium)
+                        }
+                    }
+                }
+            },
+            confirmButton = { TextButton(onClick = { marksDialog = false }) { Text(stringResource(R.string.close)) } },
+        )
+    }
     var dragging by remember { mutableStateOf(false) }
     Box(Modifier.fillMaxSize()) {
         // Topo: voltar e título.
@@ -283,7 +318,7 @@ private fun ReaderMenu(vm: ReaderViewModel, ui: ReaderUi, onExit: () -> Unit) {
             Row(Modifier.statusBarsPadding().padding(4.dp), verticalAlignment = Alignment.CenterVertically) {
                 IconButton(onClick = onExit) { Icon(Icons.AutoMirrored.Outlined.ArrowBack, stringResource(R.string.back)) }
                 Text(ui.title, style = MaterialTheme.typography.titleMedium, maxLines = 1, overflow = TextOverflow.Ellipsis, modifier = Modifier.weight(1f))
-                IconButton(onClick = { vm.toggleBookmark() }) {
+                IconButton(onClick = { if (ui.bookmarked) vm.removeBookmark() else noteDialog = true }) {
                     Icon(
                         if (ui.bookmarked) Icons.Outlined.Bookmark else Icons.Outlined.BookmarkBorder,
                         stringResource(R.string.reader_bookmark),
@@ -329,9 +364,12 @@ private fun ReaderMenu(vm: ReaderViewModel, ui: ReaderUi, onExit: () -> Unit) {
                 Row(horizontalArrangement = Arrangement.spacedBy(8.dp), modifier = Modifier.fillMaxWidth()) {
                     MenuButton(stringResource(R.string.reader_brightness_down), Modifier.weight(1f)) { vm.adjustBrightness(-10) }
                     MenuButton(stringResource(R.string.reader_brightness_up), Modifier.weight(1f)) { vm.adjustBrightness(10) }
+                }
+                Row(horizontalArrangement = Arrangement.spacedBy(8.dp), modifier = Modifier.fillMaxWidth()) {
                     if (!ui.text.isNullOrEmpty()) {
                         MenuButton(stringResource(R.string.reader_read_text), Modifier.weight(1f)) { vm.hideMenu(); vm.toggleText() }
                     }
+                    MenuButton(stringResource(R.string.bookmarks_title), Modifier.weight(1f)) { marksDialog = true }
                     MenuButton(stringResource(R.string.reader_exit), Modifier.weight(1f)) { onExit() }
                 }
             }
@@ -352,7 +390,7 @@ private fun MenuButton(text: String, modifier: Modifier, onClick: () -> Unit) {
 
 /** "Ler texto": o texto do quadro em letra grande (ajuda com balões pequenos numa tela de 7"). */
 @Composable
-private fun TextOverlay(text: String, onClose: () -> Unit) {
+private fun TextOverlay(text: String, translation: String?, onClose: () -> Unit) {
     Surface(
         color = MaterialTheme.colorScheme.background,
         modifier = Modifier.fillMaxSize().clickable(onClick = onClose),
@@ -363,6 +401,10 @@ private fun TextOverlay(text: String, onClose: () -> Unit) {
         ) {
             Text(stringResource(R.string.reader_read_text), style = MaterialTheme.typography.titleMedium)
             Text(text, fontSize = 30.sp, lineHeight = 40.sp)
+            if (translation != null) {
+                Text(stringResource(R.string.reader_translation), style = MaterialTheme.typography.titleMedium)
+                Text(translation, fontSize = 26.sp, lineHeight = 36.sp)
+            }
             TextButton(onClick = onClose) { Text(stringResource(R.string.close)) }
         }
     }
