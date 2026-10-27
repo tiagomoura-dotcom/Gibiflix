@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <title>Gibiflix</title>
+  <rect width="512" height="512" rx="96" fill="#000000"/>
+  <path transform="translate(256 256) scale(1.12) translate(-256 -256)" fill="#E1261C" d="M351 201A95 95 0 0 0 161 201L161 311A95 95 0 0 0 351 311L351 254L262 254L262 311L295 311A39 39 0 0 1 217 311L217 201A39 39 0 0 1 295 201Z"/>
+</svg>

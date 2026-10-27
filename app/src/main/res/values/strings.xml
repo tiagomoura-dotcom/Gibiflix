@@ -1,0 +1,361 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Gibiflix</string>
+    <string name="wordmark">GIBIFLIX</string>
+
+    <!-- Navegação -->
+    <string name="nav_library">Biblioteca</string>
+    <string name="nav_share">Compartilhar</string>
+    <string name="nav_settings">Ajustes</string>
+    <string name="back">Voltar</string>
+
+    <!-- Biblioteca -->
+    <string name="library_search">Buscar</string>
+    <string name="library_import">Importar</string>
+    <string name="library_empty_title">Importe seu primeiro quadrinho</string>
+    <string name="library_empty_body">CBZ, CBR, CB7 ou PDF, de um arquivo, de uma pasta, de outro aparelho ou de um servidor OPDS.</string>
+    <string name="library_empty_button">Importar quadrinho</string>
+    <string name="profile_strip">%1$s detectado · perfil e-ink ativo</string>
+
+    <!-- Compartilhar -->
+    <string name="share_title">Compartilhar</string>
+
+    <!-- Ajustes -->
+    <string name="settings_title">Ajustes</string>
+    <string name="settings_section_device">Aparelho</string>
+    <string name="settings_profile">Perfil do aparelho</string>
+    <string name="settings_diagnostics">Diagnóstico</string>
+    <string name="settings_diagnostics_hint">Dados do aparelho para enviar ao desenvolvimento</string>
+    <string name="settings_about">Sobre</string>
+    <string name="settings_version">Versão %1$s</string>
+    <string name="settings_licenses">Licenças das fontes</string>
+
+    <string name="profile_auto">Automático</string>
+    <string name="profile_auto_with">Automático (%1$s)</string>
+    <string name="profile_tablet">Tablet</string>
+    <string name="profile_eink_color">E-ink colorido</string>
+    <string name="profile_eink_mono">E-ink preto e branco</string>
+
+    <!-- Diálogo do primeiro uso no Onyx -->
+    <string name="onyx_dialog_title">Encontramos um Boox</string>
+    <string name="onyx_dialog_text">A tela dele é colorida ou preto e branco?</string>
+    <string name="onyx_dialog_color">Colorida</string>
+    <string name="onyx_dialog_mono">Preto e branco</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancelar</string>
+
+    <!-- Diagnóstico -->
+    <string name="diag_title">Diagnóstico</string>
+    <string name="diag_copy">Copiar</string>
+    <string name="diag_copied">Copiado</string>
+    <string name="diag_detected">Perfil detectado</string>
+    <string name="diag_in_use">Perfil em uso</string>
+    <string name="diag_resolution">Resolução</string>
+    <string name="diag_density">Densidade</string>
+    <string name="diag_app_version">Versão do app</string>
+    <string name="diag_android">Android</string>
+    <string name="diag_eink_controller">Controle e-ink</string>
+
+    <!-- Importação -->
+    <string name="channel_work">Importação e preparação</string>
+    <string name="channel_share">Compartilhar</string>
+    <string name="channel_reminder">Lembretes</string>
+    <string name="import_notification_title">Importando quadrinhos</string>
+    <string name="import_notification_progress">%1$d de %2$d · %3$s</string>
+    <plurals name="import_done">
+        <item quantity="one">%d quadrinho importado</item>
+        <item quantity="other">%d quadrinhos importados</item>
+    </plurals>
+    <string name="import_duplicate">%1$s já está na biblioteca (%2$s)</string>
+    <string name="import_failed">Não foi possível importar %1$s: %2$s</string>
+    <string name="import_files">Arquivos</string>
+    <string name="import_folder">Pasta inteira</string>
+    <string name="import_device">De outro aparelho</string>
+    <string name="import_opds">De um servidor OPDS</string>
+    <string name="import_progress">Importando %1$d de %2$d · %3$s</string>
+    <string name="import_receiving">Recebendo arquivo…</string>
+
+    <!-- Biblioteca: abas e lista -->
+    <string name="tab_reading">Lendo</string>
+    <string name="tab_all">Todos</string>
+    <string name="tab_series">Séries</string>
+    <string name="tab_collections">Coleções</string>
+    <string name="search_hint">Título, série, autor ou fala</string>
+    <string name="search_close">Fechar busca</string>
+    <string name="sort">Ordenar</string>
+    <string name="sort_recent_read">Lidos recentemente</string>
+    <string name="sort_recent_added">Adicionados recentemente</string>
+    <string name="sort_title">Título</string>
+    <string name="sort_series">Série e número</string>
+    <string name="continue_reading">Continuar lendo</string>
+    <string name="continue_button">Continuar</string>
+    <string name="continue_position">Página %1$d de %2$d · quadro %3$d de %4$d</string>
+    <string name="continue_position_page">Página %1$d de %2$d</string>
+    <string name="reading_empty">Nada em andamento. Abra um quadrinho em Todos.</string>
+    <string name="no_results">Nada encontrado.</string>
+    <string name="series_count">%1$d volumes · %2$d lidos</string>
+    <string name="series_next">Próximo não lido: %1$s</string>
+    <string name="series_all_read">Todos lidos</string>
+    <string name="collections_empty">Crie listas como “Para ler nas férias”.</string>
+    <string name="collection_new">Nova coleção</string>
+    <string name="collection_name">Nome da coleção</string>
+    <string name="collection_count">%d quadrinhos</string>
+    <string name="collection_rename">Renomear</string>
+    <string name="collection_delete">Excluir coleção</string>
+    <string name="create">Criar</string>
+    <string name="save">Salvar</string>
+    <string name="delete">Excluir</string>
+    <string name="close">Fechar</string>
+
+    <!-- Estados -->
+    <string name="status_new">Novo</string>
+    <string name="status_preparing">Preparando %d%%</string>
+    <string name="status_review">Revisar</string>
+    <string name="status_ready">Pronto</string>
+    <string name="status_read">Lido</string>
+
+    <!-- Ações -->
+    <string name="action_read">Ler</string>
+    <string name="action_prepare">Preparar quadros</string>
+    <string name="action_review">Revisar quadros</string>
+    <string name="action_edit">Editar informações</string>
+    <string name="action_collection">Adicionar à coleção</string>
+    <string name="action_mark_read">Marcar como lido</string>
+    <string name="action_mark_unread">Marcar como não lido</string>
+    <string name="action_export">Exportar</string>
+    <string name="action_delete">Excluir</string>
+    <string name="delete_confirm">Excluir “%1$s”? O pacote, o progresso e os marcadores deste quadrinho saem deste aparelho.</string>
+    <string name="exported">Exportado</string>
+
+    <!-- Editar informações -->
+    <string name="edit_title">Título</string>
+    <string name="edit_series">Série</string>
+    <string name="edit_number">Número</string>
+    <string name="direction">Direção de leitura</string>
+    <string name="direction_ltr">Ocidental →</string>
+    <string name="direction_rtl">Mangá ←</string>
+    <string name="pages_count">%d páginas</string>
+    <string name="coming_soon">Chega numa próxima versão</string>
+
+    <!-- Leitor -->
+    <string name="reader_loading">Carregando…</string>
+    <string name="reader_error">Não foi possível abrir este quadrinho.</string>
+    <string name="reader_page_of">Página %1$d / %2$d</string>
+    <string name="reader_panel_of">Quadro %1$d / %2$d</string>
+    <string name="reader_hint">VOL + próximo · VOL − anterior</string>
+    <string name="reader_bookmark">Marcador</string>
+    <string name="reader_mode_panel">Modo: quadro a quadro</string>
+    <string name="reader_mode_page">Modo: página inteira</string>
+    <string name="reader_brightness_down">Imagem mais escura</string>
+    <string name="reader_brightness_up">Imagem mais clara</string>
+    <string name="reader_read_text">Ler texto</string>
+    <string name="reader_exit">Sair</string>
+    <string name="reader_end_title">Fim!</string>
+    <string name="reader_end_text">Você terminou %1$s.</string>
+    <string name="reader_back_library">Voltar à biblioteca</string>
+    <string name="reader_stay">Ficar aqui</string>
+
+    <!-- Ajustes (seções) -->
+    <string name="settings_device_name">Nome na rede</string>
+    <string name="settings_section_image">Imagem</string>
+    <string name="settings_image">Ajustes de imagem</string>
+    <string name="settings_image_hint">Valem para o perfil %1$s</string>
+    <string name="settings_section_eink">Tela e-ink</string>
+    <string name="settings_full_refresh">Refresh completo</string>
+    <string name="never">Nunca</string>
+    <string name="every_n">A cada %d</string>
+    <string name="settings_flash">Limpeza por flash</string>
+    <string name="settings_flash_hint">Pisca um quadro preto para tirar os fantasmas</string>
+    <string name="settings_section_reading">Leitura</string>
+    <string name="settings_default_mode">Modo padrão</string>
+    <string name="mode_panel">Quadro a quadro</string>
+    <string name="mode_page">Página inteira</string>
+    <string name="settings_page_before">Página inteira antes dos quadros</string>
+    <string name="settings_page_after">Página inteira depois dos quadros</string>
+    <string name="settings_split_wide">Dividir quadros muito largos</string>
+    <string name="settings_split_wide_hint">Em 2 ou 3 partes com sobreposição</string>
+    <string name="settings_margin">Margem do quadro</string>
+    <string name="settings_max_zoom">Ampliação máxima</string>
+    <string name="settings_tap_zones">Zonas de toque</string>
+    <string name="settings_tap_zones_hint">Terço esquerdo volta, direito avança, meio abre o menu</string>
+    <string name="settings_default_direction">Direção padrão</string>
+    <string name="settings_keep_screen">Manter a tela ligada</string>
+    <string name="settings_section_buttons">Botões</string>
+    <string name="settings_use_volume">Usar botões de volume</string>
+    <string name="settings_swap_volume">Trocar Volume + e Volume −</string>
+    <string name="settings_hold">Segurar para mudar de página</string>
+    <string name="settings_hold_hint">Segurar Volume + ou − por 0,6 s</string>
+    <string name="settings_section_prepare">Preparação</string>
+    <string name="settings_prepare_on_import">Preparar ao importar</string>
+    <string name="yes">Sim</string>
+    <string name="ask">Perguntar</string>
+    <string name="no">Não</string>
+    <string name="settings_ocr">Ler o texto dos balões</string>
+    <string name="settings_ocr_hint">Permite buscar falas e usar “Ler texto”</string>
+    <string name="settings_translate">Traduzir os balões para</string>
+    <string name="translate_off">Não traduzir</string>
+    <string name="settings_pdf_size">Tamanho de renderização do PDF</string>
+    <string name="settings_tolerance">Tolerância da detecção</string>
+    <string name="settings_section_library">Biblioteca</string>
+    <string name="settings_columns">Colunas</string>
+    <string name="auto">Automático</string>
+    <string name="settings_section_more">Mais</string>
+    <string name="servers_title">Servidores OPDS</string>
+    <string name="servers_hint">Komga, Kavita e outros</string>
+    <string name="stats_title">Estatísticas</string>
+    <string name="backup_title">Backup</string>
+    <string name="bookmarks_title">Marcadores</string>
+
+    <!-- Imagem -->
+    <string name="image_contrast">Contraste</string>
+    <string name="image_brightness">Brilho</string>
+    <string name="image_saturation">Saturação</string>
+    <string name="image_midtones">Escurecer meios-tons</string>
+    <string name="image_sharpness">Nitidez</string>
+    <string name="sharp_off">Desligada</string>
+    <string name="sharp_light">Leve</string>
+    <string name="sharp_medium">Média</string>
+    <string name="sharp_strong">Forte</string>
+    <string name="image_dither">Pontilhado</string>
+    <string name="image_dither_hint">16 níveis de cinza (Floyd–Steinberg)</string>
+    <string name="image_reset">Restaurar padrões do perfil</string>
+
+    <!-- Preparação -->
+    <string name="prepare_notification_title">Preparando quadrinhos</string>
+    <string name="prepare_notification_progress">%1$s · página %2$d de %3$d</string>
+    <string name="prepare_ask_title">Preparar agora?</string>
+    <string name="prepare_ask_text">Detectar os quadros de %1$d quadrinho(s) importado(s)? Neste aparelho pode demorar; dá para preparar no tablet e enviar depois.</string>
+    <string name="prepare_now">Preparar</string>
+    <string name="prepare_later">Agora não</string>
+
+    <!-- Editor -->
+    <string name="editor_title">Preparando · %1$s</string>
+    <string name="editor_detecting">Detectando %1$d de %2$d</string>
+    <string name="editor_detected">Detecção automática concluída</string>
+    <string name="editor_not_prepared">Ainda não preparado: use “Preparar o livro”</string>
+    <string name="editor_saving">salvando</string>
+    <string name="editor_send">Enviar para o Boox</string>
+    <string name="editor_only_review">Só as que precisam de revisão</string>
+    <string name="page_reviewed">revisada</string>
+    <string name="page_check">verificar</string>
+    <string name="page_pending">pendente</string>
+    <string name="page_ok">ok</string>
+    <string name="editor_reset_zoom">Ver a página inteira</string>
+    <string name="tool_draw">Desenhar</string>
+    <string name="tool_join">Juntar</string>
+    <string name="tool_split">Dividir</string>
+    <string name="tool_delete">Apagar</string>
+    <string name="undo">Desfazer</string>
+    <string name="redo">Refazer</string>
+    <string name="editor_details">Detalhes</string>
+    <string name="editor_hide_details">Ver a página</string>
+    <string name="editor_page_of">Página %1$d de %2$d</string>
+    <string name="editor_approve">Aprovar e ir para a próxima</string>
+    <string name="confidence_none">ainda sem detecção</string>
+    <string name="confidence_high">confiança alta</string>
+    <string name="confidence_medium">confiança média</string>
+    <string name="confidence_low">confiança baixa</string>
+    <string name="editor_panels_info">%1$d quadros detectados · %2$s</string>
+    <string name="editor_page_direction">Só nesta página</string>
+    <string name="editor_inherit">Igual ao livro</string>
+    <string name="editor_tools">Ferramentas</string>
+    <string name="editor_order">Ordem de leitura</string>
+    <string name="editor_panel_n">Quadro %d</string>
+    <string name="editor_drag">Segure e arraste para reordenar</string>
+    <string name="editor_redetect">Redetectar esta página</string>
+    <string name="editor_redetecting">Detectando…</string>
+    <string name="editor_reviewed_count">%1$d de %2$d páginas revisadas</string>
+    <string name="editor_prepare_book">Preparar o livro…</string>
+    <string name="editor_prepare_keep">Detectar (manter as revisadas)</string>
+    <string name="editor_prepare_redo">Refazer tudo</string>
+    <string name="hint_select">Toque num quadro para selecionar. Arraste o meio para mover e as alças para redimensionar. Pinça dá zoom.</string>
+    <string name="hint_draw">Arraste na página para criar um quadro.</string>
+    <string name="hint_join">Toque nos quadros a juntar e depois em Juntar de novo.</string>
+    <string name="hint_split">Trace uma linha sobre o quadro para dividi-lo.</string>
+
+    <!-- Compartilhar -->
+    <string name="share_send">Enviar deste aparelho</string>
+    <string name="share_send_hint">Os outros aparelhos encontram este na rede Wi-Fi</string>
+    <string name="share_receive">Receber de outro aparelho</string>
+    <string name="share_receive_hint">Baixe quadrinhos e sincronize o progresso</string>
+    <string name="share_export">Exportar para pasta</string>
+    <string name="share_export_hint">Pacotes + gibiflix-sync.json (Syncthing, cabo USB…)</string>
+    <string name="share_import_folder">Importar de pasta</string>
+    <string name="share_import_folder_hint">Lê pacotes e o gibiflix-sync.json e junta com os daqui</string>
+    <string name="share_import_folder_started">Importando a pasta em segundo plano…</string>
+    <string name="share_choose_folder">Escolher a pasta</string>
+    <string name="select_all">Selecionar todos</string>
+    <string name="share_exported">%d quadrinho(s) exportado(s)</string>
+    <string name="share_sending">Compartilhando quadrinhos</string>
+    <string name="share_sending_hint">Outro aparelho pode receber enquanto a tela estiver aberta</string>
+    <string name="share_server_error">Não foi possível ligar o compartilhamento: %1$s</string>
+    <string name="share_visible_as">Visível na rede como “%1$s”</string>
+    <string name="share_code">Código para o outro aparelho:</string>
+    <string name="share_address">Endereço: %1$s</string>
+    <string name="share_keep_open">Deixe esta tela aberta até terminar.</string>
+    <string name="share_activity">%d pedidos atendidos</string>
+    <string name="share_searching">Procurando aparelhos com o Gibiflix aberto em “Enviar”…</string>
+    <string name="share_manual">Digitar o endereço</string>
+    <string name="share_enter_code">Código mostrado em %1$s</string>
+    <string name="share_wrong_code">Código errado. Confira no outro aparelho.</string>
+    <string name="share_connect_failed">Não foi possível conectar: %1$s</string>
+    <string name="share_download_selected">Baixar selecionados</string>
+    <string name="share_sync">Sincronizar progresso</string>
+    <string name="share_group_new">Novos</string>
+    <string name="share_group_updated">Atualizados</string>
+    <string name="share_group_have">Já tenho</string>
+    <string name="share_item_info">%1$d págs · %2$d preparadas · %3$d revisadas · %4$d MB</string>
+    <string name="share_item_done">Recebido</string>
+    <string name="share_already_have">Já estava aqui</string>
+    <string name="share_download_done">%d quadrinho(s) recebido(s).</string>
+    <string name="share_synced">Progresso e marcadores sincronizados (%d mudanças).</string>
+
+    <!-- OPDS -->
+    <string name="server_add">Adicionar servidor</string>
+    <string name="server_edit">Editar servidor</string>
+    <string name="servers_empty">Nenhum servidor cadastrado.</string>
+    <string name="servers_help">Komga costuma ser http://&lt;ip&gt;:25600/opds/v1.2/catalog. O Kavita mostra a URL OPDS (com a chave da API) no perfil do usuário.</string>
+    <string name="server_name">Nome</string>
+    <string name="server_url">URL do catálogo OPDS</string>
+    <string name="server_user">Usuário (opcional)</string>
+    <string name="server_password">Senha (opcional)</string>
+    <string name="server_password_keep">Senha (deixe vazio para manter)</string>
+    <string name="opds_search_hint">Buscar no servidor</string>
+    <string name="opds_error">Não foi possível abrir: %1$s</string>
+    <string name="opds_more">Carregar mais</string>
+    <string name="opds_download">Baixar</string>
+    <string name="opds_downloaded">Na biblioteca</string>
+    <string name="opds_imported">%1$s entrou na biblioteca</string>
+
+    <!-- Marcadores, estatísticas e backup -->
+    <string name="bookmarks_empty">Nenhum marcador. No leitor, toque no meio da tela e no ícone de marcador.</string>
+    <string name="bookmark_position">Página %1$d · quadro %2$d</string>
+    <string name="bookmark_note">Nota</string>
+    <string name="bookmark_add_title">Marcar este quadro</string>
+    <string name="bookmark_remove">Remover marcador</string>
+    <string name="bookmarks_of_comic">Marcadores deste quadrinho</string>
+    <string name="stats_week">Semana</string>
+    <string name="stats_month">Mês</string>
+    <string name="stats_streak">Sequência</string>
+    <string name="stats_days">%d dias</string>
+    <string name="stats_finished_per_month">Quadrinhos concluídos por mês</string>
+    <string name="stats_total_per_comic">Tempo por quadrinho</string>
+    <string name="stats_total">Total: %1$s em %2$d sessões</string>
+    <string name="backup_light_hint">O backup leve guarda progresso, marcadores, coleções, estatísticas, ajustes e servidores. É pequeno e rápido.</string>
+    <string name="backup_last">Último backup: %1$s</string>
+    <string name="backup_never">Nenhum backup feito ainda.</string>
+    <string name="backup_full">Backup completo</string>
+    <string name="backup_full_hint">Inclui todos os pacotes (pode ficar grande)</string>
+    <string name="backup_passwords">Incluir senhas dos servidores</string>
+    <string name="backup_passwords_hint">Ficam legíveis dentro do arquivo de backup</string>
+    <string name="backup_create">Fazer backup</string>
+    <string name="backup_restore">Restaurar de um arquivo</string>
+    <string name="backup_done">Backup salvo.</string>
+    <string name="backup_failed">Não deu certo: %1$s</string>
+    <string name="restore_done">Restaurado: %1$d progressos, %2$d marcadores, %3$d coleções, %4$d sessões, %5$d quadrinhos.</string>
+    <string name="backup_reminder">Lembrete semanal</string>
+    <string name="backup_reminder_hint">Avisa para fazer o backup leve</string>
+    <string name="backup_reminder_title">Hora do backup do Gibiflix</string>
+    <string name="backup_reminder_text">Faça o backup leve para guardar progresso, marcadores e coleções.</string>
+    <string name="reader_translation">Tradução</string>
+</resources>

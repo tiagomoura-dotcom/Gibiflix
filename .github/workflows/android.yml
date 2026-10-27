@@ -1,0 +1,106 @@
+# Compila o Gibiflix.
+# - Push na main: testes + APK release assinado + GitHub Release v0.1.<n>.
+# - Pull request: testes + APK debug como artifact (para testar antes do merge).
+# Se aparecerem avisos de actions desatualizadas, suba as versões (@vN) abaixo.
+name: Android
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: android-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - uses: android-actions/setup-android@v3
+        with:
+          # O pacote 'tools' (padrão da action) não existe mais no sdkmanager.
+          packages: 'platform-tools'
+
+      - uses: gradle/actions/setup-gradle@v5
+
+      - name: Verificar projeto
+        run: |
+          if [ ! -f gradlew ]; then
+            echo "::error::O projeto Android ainda não existe (falta gradlew). Rode a Fase 0 do docs/ROTEIRO.md."
+            exit 1
+          fi
+          chmod +x gradlew
+
+      - name: Preparar chave de assinatura
+        if: github.event_name != 'pull_request'
+        env:
+          KEYSTORE_BASE64: ${{ secrets.GIBIFLIX_KEYSTORE_BASE64 }}
+        run: |
+          if [ -n "$KEYSTORE_BASE64" ]; then
+            echo "$KEYSTORE_BASE64" | base64 --decode > "$RUNNER_TEMP/gibiflix.keystore"
+            echo "GIBIFLIX_KEYSTORE_FILE=$RUNNER_TEMP/gibiflix.keystore" >> "$GITHUB_ENV"
+          else
+            echo "::warning::Secret GIBIFLIX_KEYSTORE_BASE64 não cadastrado: este APK sai com chave de debug e NÃO vai atualizar por cima das próximas versões."
+          fi
+
+      - name: Testes
+        run: |
+          set -o pipefail
+          ./gradlew :core:test testDebugUnitTest --stacktrace 2>&1 | tee -a build.log
+
+      - name: APK debug
+        if: github.event_name == 'pull_request'
+        run: |
+          set -o pipefail
+          ./gradlew assembleDebug --stacktrace 2>&1 | tee -a build.log
+
+      - name: APK release
+        if: github.event_name != 'pull_request'
+        env:
+          GIBIFLIX_KEYSTORE_PASSWORD: ${{ secrets.GIBIFLIX_KEYSTORE_PASSWORD }}
+        run: |
+          set -o pipefail
+          ./gradlew assembleRelease --stacktrace 2>&1 | tee -a build.log
+
+      - name: Resumo dos erros
+        if: failure()
+        run: |
+          echo "=== Resumo dos erros ==="
+          grep -E '^e: |error:|Error:|What went wrong|FAILED|Exception' build.log | grep -v '^\s*at ' | head -80 || true
+
+      - name: Nomear APK
+        run: |
+          mkdir -p dist
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            cp app/build/outputs/apk/debug/*.apk "dist/gibiflix-pr${{ github.event.number }}-debug.apk"
+          else
+            cp app/build/outputs/apk/release/*.apk "dist/gibiflix-0.1.${{ github.run_number }}.apk"
+          fi
+
+      - uses: actions/upload-artifact@v5
+        with:
+          name: gibiflix-apk
+          path: dist/*.apk
+
+      - name: Publicar release
+        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v0.1.${{ github.run_number }}
+          name: Gibiflix 0.1.${{ github.run_number }}
+          body: Build automático do commit ${{ github.sha }}.
+          files: dist/*.apk
+          make_latest: true
