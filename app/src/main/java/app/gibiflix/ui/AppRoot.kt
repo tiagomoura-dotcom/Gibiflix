@@ -37,6 +37,7 @@ import app.gibiflix.R
 import app.gibiflix.container
 import app.gibiflix.reader.ReaderActivity
 import app.gibiflix.ui.components.TopBar
+import app.gibiflix.ui.editor.EditorScreen
 import app.gibiflix.ui.library.LibraryActions
 import app.gibiflix.ui.library.LibraryScreen
 import app.gibiflix.ui.settings.DiagnosticsScreen
@@ -73,6 +74,7 @@ fun AppRoot() {
     val profileState by c.deviceProfile.state.collectAsStateWithLifecycle()
     val asking by c.prepareScheduler.asking.collectAsStateWithLifecycle()
     var tab by rememberSaveable { mutableStateOf(Tab.LIBRARY) }
+    var shareSend by rememberSaveable { mutableStateOf(false) }
     val nav = remember { Navigator() }
     val scope = rememberCoroutineScope()
 
@@ -89,7 +91,7 @@ fun AppRoot() {
             Route.Stats -> Placeholder(back)
             Route.Backup -> Placeholder(back)
             Route.Bookmarks -> Placeholder(back)
-            is Route.Editor -> Placeholder(back)
+            is Route.Editor -> EditorScreen(top.comicId, onBack = back, onSendToBoox = { nav.stack.clear(); shareSend = true; tab = Tab.SHARE })
         }
     } else {
         Scaffold(

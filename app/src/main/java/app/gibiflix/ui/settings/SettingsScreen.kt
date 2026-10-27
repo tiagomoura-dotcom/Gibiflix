@@ -99,7 +99,7 @@ fun SettingsScreen(routes: SettingsRoutes) {
                 SectionTitle(stringResource(R.string.settings_section_eink))
                 StepperRow(
                     stringResource(R.string.settings_full_refresh), ps.fullRefreshEvery, 0..30,
-                    format = { if (it == 0) stringResource(R.string.never) else stringResource(R.string.every_n, it) },
+                    format = { if (it == 0) context.getString(R.string.never) else context.getString(R.string.every_n, it) },
                 ) { v -> updateProfile { it.copy(fullRefreshEvery = v) } }
                 SwitchRow(stringResource(R.string.settings_flash), ps.flashClean, stringResource(R.string.settings_flash_hint)) { v ->
                     updateProfile { it.copy(flashClean = v) }
@@ -168,7 +168,7 @@ fun SettingsScreen(routes: SettingsRoutes) {
             SectionTitle(stringResource(R.string.settings_section_library))
             StepperRow(
                 stringResource(R.string.settings_columns), user.library.columns, 0..8,
-                format = { if (it == 0) stringResource(R.string.auto) else it.toString() },
+                format = { if (it == 0) context.getString(R.string.auto) else it.toString() },
             ) { v -> updateUser { it.copy(library = it.library.copy(columns = v)) } }
             SettingRow(stringResource(R.string.bookmarks_title), onClick = routes.bookmarks)
 
