@@ -14,7 +14,7 @@ work = "2.10.0"
 documentfile = "1.1.0"
 coil = "2.7.0"
 ktor = "3.4.3"
-libarchive = "1.1.7"
+libarchive = "1.1.6"
 junit = "4.13.2"
 
 [libraries]
