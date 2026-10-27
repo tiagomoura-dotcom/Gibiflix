@@ -155,4 +155,77 @@
     <string name="reader_end_text">Você terminou %1$s.</string>
     <string name="reader_back_library">Voltar à biblioteca</string>
     <string name="reader_stay">Ficar aqui</string>
+
+    <!-- Ajustes (seções) -->
+    <string name="settings_device_name">Nome na rede</string>
+    <string name="settings_section_image">Imagem</string>
+    <string name="settings_image">Ajustes de imagem</string>
+    <string name="settings_image_hint">Valem para o perfil %1$s</string>
+    <string name="settings_section_eink">Tela e-ink</string>
+    <string name="settings_full_refresh">Refresh completo</string>
+    <string name="never">Nunca</string>
+    <string name="every_n">A cada %d</string>
+    <string name="settings_flash">Limpeza por flash</string>
+    <string name="settings_flash_hint">Pisca um quadro preto para tirar os fantasmas</string>
+    <string name="settings_section_reading">Leitura</string>
+    <string name="settings_default_mode">Modo padrão</string>
+    <string name="mode_panel">Quadro a quadro</string>
+    <string name="mode_page">Página inteira</string>
+    <string name="settings_page_before">Página inteira antes dos quadros</string>
+    <string name="settings_page_after">Página inteira depois dos quadros</string>
+    <string name="settings_split_wide">Dividir quadros muito largos</string>
+    <string name="settings_split_wide_hint">Em 2 ou 3 partes com sobreposição</string>
+    <string name="settings_margin">Margem do quadro</string>
+    <string name="settings_max_zoom">Ampliação máxima</string>
+    <string name="settings_tap_zones">Zonas de toque</string>
+    <string name="settings_tap_zones_hint">Terço esquerdo volta, direito avança, meio abre o menu</string>
+    <string name="settings_default_direction">Direção padrão</string>
+    <string name="settings_keep_screen">Manter a tela ligada</string>
+    <string name="settings_section_buttons">Botões</string>
+    <string name="settings_use_volume">Usar botões de volume</string>
+    <string name="settings_swap_volume">Trocar Volume + e Volume −</string>
+    <string name="settings_hold">Segurar para mudar de página</string>
+    <string name="settings_hold_hint">Segurar Volume + ou − por 0,6 s</string>
+    <string name="settings_section_prepare">Preparação</string>
+    <string name="settings_prepare_on_import">Preparar ao importar</string>
+    <string name="yes">Sim</string>
+    <string name="ask">Perguntar</string>
+    <string name="no">Não</string>
+    <string name="settings_ocr">Ler o texto dos balões</string>
+    <string name="settings_ocr_hint">Permite buscar falas e usar “Ler texto”</string>
+    <string name="settings_translate">Traduzir os balões para</string>
+    <string name="translate_off">Não traduzir</string>
+    <string name="settings_pdf_size">Tamanho de renderização do PDF</string>
+    <string name="settings_tolerance">Tolerância da detecção</string>
+    <string name="settings_section_library">Biblioteca</string>
+    <string name="settings_columns">Colunas</string>
+    <string name="auto">Automático</string>
+    <string name="settings_section_more">Mais</string>
+    <string name="servers_title">Servidores OPDS</string>
+    <string name="servers_hint">Komga, Kavita e outros</string>
+    <string name="stats_title">Estatísticas</string>
+    <string name="backup_title">Backup</string>
+    <string name="bookmarks_title">Marcadores</string>
+
+    <!-- Imagem -->
+    <string name="image_contrast">Contraste</string>
+    <string name="image_brightness">Brilho</string>
+    <string name="image_saturation">Saturação</string>
+    <string name="image_midtones">Escurecer meios-tons</string>
+    <string name="image_sharpness">Nitidez</string>
+    <string name="sharp_off">Desligada</string>
+    <string name="sharp_light">Leve</string>
+    <string name="sharp_medium">Média</string>
+    <string name="sharp_strong">Forte</string>
+    <string name="image_dither">Pontilhado</string>
+    <string name="image_dither_hint">16 níveis de cinza (Floyd–Steinberg)</string>
+    <string name="image_reset">Restaurar padrões do perfil</string>
+
+    <!-- Preparação -->
+    <string name="prepare_notification_title">Preparando quadrinhos</string>
+    <string name="prepare_notification_progress">%1$s · página %2$d de %3$d</string>
+    <string name="prepare_ask_title">Preparar agora?</string>
+    <string name="prepare_ask_text">Detectar os quadros de %1$d quadrinho(s) importado(s)? Neste aparelho pode demorar; dá para preparar no tablet e enviar depois.</string>
+    <string name="prepare_now">Preparar</string>
+    <string name="prepare_later">Agora não</string>
 </resources>

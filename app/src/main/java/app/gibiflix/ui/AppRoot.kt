@@ -1,7 +1,9 @@
 package app.gibiflix.ui
 
+import android.content.Context
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -9,6 +11,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.LibraryBooks
 import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.material.icons.outlined.SwapHoriz
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
@@ -16,11 +19,13 @@ import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
@@ -30,24 +35,33 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import app.gibiflix.R
 import app.gibiflix.container
+import app.gibiflix.reader.ReaderActivity
+import app.gibiflix.ui.components.TopBar
 import app.gibiflix.ui.library.LibraryActions
 import app.gibiflix.ui.library.LibraryScreen
 import app.gibiflix.ui.settings.DiagnosticsScreen
+import app.gibiflix.ui.settings.ImageSettingsScreen
 import app.gibiflix.ui.settings.OnyxConfirmDialog
+import app.gibiflix.ui.settings.SettingsRoutes
 import app.gibiflix.ui.settings.SettingsScreen
 import app.gibiflix.ui.share.ShareScreen
+import kotlinx.coroutines.launch
 
 enum class Tab { LIBRARY, SHARE, SETTINGS }
 
 /** Telas empilhadas por cima das abas. */
 sealed interface Route {
     data object Diagnostics : Route
+    data object ImageSettings : Route
     data object Servers : Route
+    data object Stats : Route
+    data object Backup : Route
+    data object Bookmarks : Route
     data class Editor(val comicId: String) : Route
 }
 
-class Navigator(initial: List<Route> = emptyList()) {
-    val stack = mutableStateListOf<Route>().apply { addAll(initial) }
+class Navigator {
+    val stack = mutableStateListOf<Route>()
     fun push(route: Route) { stack.add(route) }
     fun pop(): Boolean = if (stack.isNotEmpty()) { stack.removeAt(stack.lastIndex); true } else false
 }
@@ -55,20 +69,27 @@ class Navigator(initial: List<Route> = emptyList()) {
 @Composable
 fun AppRoot() {
     val context = LocalContext.current
-    val deviceProfile = context.container.deviceProfile
-    val profileState by deviceProfile.state.collectAsStateWithLifecycle()
+    val c = context.container
+    val profileState by c.deviceProfile.state.collectAsStateWithLifecycle()
+    val asking by c.prepareScheduler.asking.collectAsStateWithLifecycle()
     var tab by rememberSaveable { mutableStateOf(Tab.LIBRARY) }
     val nav = remember { Navigator() }
+    val scope = rememberCoroutineScope()
 
     BackHandler(enabled = nav.stack.isNotEmpty()) { nav.pop() }
     BackHandler(enabled = nav.stack.isEmpty() && tab != Tab.LIBRARY) { tab = Tab.LIBRARY }
 
     val top = nav.stack.lastOrNull()
     if (top != null) {
+        val back = { nav.pop(); Unit }
         when (top) {
-            Route.Diagnostics -> DiagnosticsScreen(onBack = { nav.pop() })
-            Route.Servers -> PlaceholderScreen(onBack = { nav.pop() })
-            is Route.Editor -> PlaceholderScreen(onBack = { nav.pop() })
+            Route.Diagnostics -> DiagnosticsScreen(onBack = back)
+            Route.ImageSettings -> ImageSettingsScreen(onBack = back)
+            Route.Servers -> Placeholder(back)
+            Route.Stats -> Placeholder(back)
+            Route.Backup -> Placeholder(back)
+            Route.Bookmarks -> Placeholder(back)
+            is Route.Editor -> Placeholder(back)
         }
     } else {
         Scaffold(
@@ -81,30 +102,53 @@ fun AppRoot() {
                     Tab.LIBRARY -> LibraryScreen(
                         LibraryActions(
                             onRead = { id -> openComic(context, id) },
-                            onPrepare = { id -> openPrepare(context, nav, id) },
+                            onPrepare = { id -> nav.push(Route.Editor(id)) },
                             onOpenSettings = { tab = Tab.SETTINGS },
                             onImportDevice = { tab = Tab.SHARE },
                             onImportOpds = { nav.push(Route.Servers) },
                         )
                     )
                     Tab.SHARE -> ShareScreen()
-                    Tab.SETTINGS -> SettingsScreen(onOpenDiagnostics = { nav.push(Route.Diagnostics) })
+                    Tab.SETTINGS -> SettingsScreen(
+                        SettingsRoutes(
+                            diagnostics = { nav.push(Route.Diagnostics) },
+                            image = { nav.push(Route.ImageSettings) },
+                            servers = { nav.push(Route.Servers) },
+                            stats = { nav.push(Route.Stats) },
+                            backup = { nav.push(Route.Backup) },
+                            bookmarks = { nav.push(Route.Bookmarks) },
+                        )
+                    )
                 }
             }
         }
     }
 
     if (profileState.loaded && profileState.needsOnyxConfirmation) {
-        OnyxConfirmDialog(suggested = deviceProfile.detected)
+        OnyxConfirmDialog(suggested = c.deviceProfile.detected)
+    } else if (asking.isNotEmpty()) {
+        AlertDialog(
+            onDismissRequest = { scope.launch { c.prepareScheduler.answer(false) } },
+            title = { Text(stringResource(R.string.prepare_ask_title)) },
+            text = { Text(stringResource(R.string.prepare_ask_text, asking.size)) },
+            confirmButton = { TextButton(onClick = { scope.launch { c.prepareScheduler.answer(true) } }) { Text(stringResource(R.string.prepare_now)) } },
+            dismissButton = { TextButton(onClick = { scope.launch { c.prepareScheduler.answer(false) } }) { Text(stringResource(R.string.prepare_later)) } },
+        )
     }
+}
+
+fun openComic(context: Context, id: String, page: Int = -1, panel: Int = -1) {
+    context.startActivity(ReaderActivity.intent(context, id, page, panel))
+}
+
+@Composable
+private fun Placeholder(onBack: () -> Unit) {
+    Column(Modifier.fillMaxSize()) { TopBar(stringResource(R.string.coming_soon), onBack = onBack) }
 }
 
 @Composable
 private fun BottomBar(tab: Tab, onSelect: (Tab) -> Unit) {
-    NavigationBar(
-        containerColor = MaterialTheme.colorScheme.surfaceContainer,
-        tonalElevation = 0.dp,
-    ) {
+    NavigationBar(containerColor = MaterialTheme.colorScheme.surfaceContainer, tonalElevation = 0.dp) {
         val colors = NavigationBarItemDefaults.colors(
             selectedIconColor = MaterialTheme.colorScheme.onSecondaryContainer,
             selectedTextColor = MaterialTheme.colorScheme.onSurface,
@@ -126,20 +170,5 @@ private fun BottomBar(tab: Tab, onSelect: (Tab) -> Unit) {
                 colors = colors,
             )
         }
-    }
-}
-
-fun openComic(context: android.content.Context, id: String, page: Int = -1, panel: Int = -1) {
-    context.startActivity(app.gibiflix.reader.ReaderActivity.intent(context, id, page, panel))
-}
-
-fun openPrepare(context: android.content.Context, nav: Navigator, id: String) {
-    nav.push(Route.Editor(id))
-}
-
-@Composable
-private fun PlaceholderScreen(onBack: () -> Unit) {
-    androidx.compose.foundation.layout.Column(Modifier.fillMaxSize()) {
-        app.gibiflix.ui.components.TopBar(stringResource(R.string.coming_soon), onBack = onBack)
     }
 }

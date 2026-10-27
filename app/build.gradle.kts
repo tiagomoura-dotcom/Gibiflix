@@ -113,6 +113,8 @@ dependencies {
 
     implementation(libs.libarchive)
     implementation(libs.hiddenapibypass)
+    implementation(libs.mlkit.text)
+    implementation(libs.mlkit.translate)
     // Chamado só por reflexão (OnyxEinkController).
     implementation(libs.onyx.device)
 

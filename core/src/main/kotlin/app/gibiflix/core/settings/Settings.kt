@@ -90,6 +90,8 @@ data class PrepareSettings(
     val ocr: Boolean? = null,
     val pdfLongSide: Int = 2560,
     val tolerance: Int = 40,
+    /** Idioma para traduzir os balões na preparação (null = não traduzir). */
+    val translateTo: String? = null,
 )
 
 @Serializable

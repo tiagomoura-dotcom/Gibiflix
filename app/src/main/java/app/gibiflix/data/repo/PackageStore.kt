@@ -85,6 +85,8 @@ class PackageStore(private val files: LibraryFiles, private val comics: ComicDao
                 revision = doc.revision,
                 status = if (keepPreparing) PrepStatus.PREPARING else status,
                 sizeBytes = files.packageFile(id).length(),
+                balloonText = doc.pages.flatMap { p -> p.panels.flatMap { it.text.orEmpty() } }
+                    .joinToString(" ") { it.value }.ifBlank { null },
                 updatedAt = System.currentTimeMillis(),
             )
         )

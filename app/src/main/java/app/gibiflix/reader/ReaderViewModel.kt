@@ -19,6 +19,7 @@ import app.gibiflix.core.reader.Screen
 import app.gibiflix.core.reader.ViewKind
 import app.gibiflix.core.reader.ViewSpec
 import app.gibiflix.core.settings.ImageSettings
+import app.gibiflix.core.settings.ProfileDefaults
 import app.gibiflix.core.settings.ProfileSettings
 import app.gibiflix.core.settings.ReadMode
 import app.gibiflix.core.settings.ReaderSettings
@@ -78,7 +79,7 @@ class ReaderViewModel(app: Application, saved: SavedStateHandle) : AndroidViewMo
     private var screen: Screen? = null
     private var nav: Navigator? = null
     private var reader = ReaderSettings()
-    private var profileSettings: ProfileSettings = app.gibiflix.core.settings.ProfileDefaults.of(c.deviceProfile.profile)
+    private var profileSettings: ProfileSettings = ProfileDefaults.of(c.deviceProfile.profile)
     private var profile: Profile = c.deviceProfile.profile
     private var mode: ReadMode = ReadMode.PANEL
     private var renderJob: Job? = null

@@ -57,17 +57,29 @@ jobs:
           fi
 
       - name: Testes
-        run: ./gradlew :core:test testDebugUnitTest --stacktrace
+        run: |
+          set -o pipefail
+          ./gradlew :core:test testDebugUnitTest --stacktrace 2>&1 | tee -a build.log
 
       - name: APK debug
         if: github.event_name == 'pull_request'
-        run: ./gradlew assembleDebug --stacktrace
+        run: |
+          set -o pipefail
+          ./gradlew assembleDebug --stacktrace 2>&1 | tee -a build.log
 
       - name: APK release
         if: github.event_name != 'pull_request'
         env:
           GIBIFLIX_KEYSTORE_PASSWORD: ${{ secrets.GIBIFLIX_KEYSTORE_PASSWORD }}
-        run: ./gradlew assembleRelease --stacktrace
+        run: |
+          set -o pipefail
+          ./gradlew assembleRelease --stacktrace 2>&1 | tee -a build.log
+
+      - name: Resumo dos erros
+        if: failure()
+        run: |
+          echo "=== Resumo dos erros ==="
+          grep -E '^e: |error:|Error:|What went wrong|FAILED|Exception' build.log | grep -v '^\s*at ' | head -80 || true
 
       - name: Nomear APK
         run: |
