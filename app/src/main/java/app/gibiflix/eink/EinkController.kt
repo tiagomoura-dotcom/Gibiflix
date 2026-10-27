@@ -1,6 +1,7 @@
 package app.gibiflix.eink
 
 import android.content.Context
+import android.util.Log
 import android.view.View
 import app.gibiflix.device.DeviceProfileManager
 import app.gibiflix.settings.SettingsRepository
@@ -18,6 +19,9 @@ interface EinkController {
 
     fun attach(view: View?)
 
+    /** Trocas entre refreshes completos (0 = nunca) e se a limpeza usa flash. */
+    fun configure(fullRefreshEvery: Int, flashClean: Boolean)
+
     /** Avise a cada troca de conteúdo (página ou quadro). Faz o refresh completo a cada N trocas. */
     fun onContentChanged()
 
@@ -31,6 +35,7 @@ class NoopEinkController : EinkController {
     override val name = "nenhum (tablet)"
     override val flash: StateFlow<Boolean> = MutableStateFlow(false).asStateFlow()
     override fun attach(view: View?) = Unit
+    override fun configure(fullRefreshEvery: Int, flashClean: Boolean) = Unit
     override fun onContentChanged() = Unit
     override fun fullRefresh() = Unit
     override fun setReadingMode(on: Boolean) = Unit
@@ -42,7 +47,18 @@ object EinkControllerFactory {
         deviceProfile: DeviceProfileManager,
         settings: SettingsRepository,
         scope: CoroutineScope,
-    ): EinkController = ProfileAwareEinkController(deviceProfile, GenericEinkController(scope))
+    ): EinkController {
+        val generic = GenericEinkController(scope)
+        val eink: EinkController = if (deviceProfile.isOnyx) {
+            try {
+                OnyxEinkController.tryCreate(context, scope) ?: generic
+            } catch (t: Throwable) {
+                Log.w("Gibiflix", "SDK da Onyx indisponível, usando o genérico", t)
+                generic
+            }
+        } else generic
+        return ProfileAwareEinkController(deviceProfile, eink)
+    }
 }
 
 /** Delega ao controlador e-ink só quando o perfil em uso é e-ink. */
@@ -55,6 +71,7 @@ class ProfileAwareEinkController(
     override val name: String get() = current.name
     override val flash: StateFlow<Boolean> get() = eink.flash
     override fun attach(view: View?) = eink.attach(view)
+    override fun configure(fullRefreshEvery: Int, flashClean: Boolean) = eink.configure(fullRefreshEvery, flashClean)
     override fun onContentChanged() = current.onContentChanged()
     override fun fullRefresh() = current.fullRefresh()
     override fun setReadingMode(on: Boolean) = current.setReadingMode(on)

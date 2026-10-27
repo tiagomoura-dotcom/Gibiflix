@@ -11,6 +11,12 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
+        // SDK da Onyx (refresh e-ink dos Boox). Só HTTP; restrito ao grupo da Onyx.
+        maven {
+            url = uri("http://repo.boox.com/repository/maven-public/")
+            isAllowInsecureProtocol = true
+            content { includeGroupByRegex("com\\.onyx.*") }
+        }
     }
 }
 

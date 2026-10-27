@@ -14,7 +14,7 @@ import java.lang.ref.WeakReference
  * E-ink sem SDK: o refresh completo é um "flash" (quadro preto por ~60 ms e depois a imagem),
  * que limpa os fantasmas na maioria das telas.
  */
-open class GenericEinkController(private val scope: CoroutineScope) : EinkController {
+open class GenericEinkController(protected val scope: CoroutineScope) : EinkController {
     override val name: String = "genérico"
 
     private val _flash = MutableStateFlow(false)
@@ -23,7 +23,6 @@ open class GenericEinkController(private val scope: CoroutineScope) : EinkContro
     private var viewRef: WeakReference<View>? = null
     private var changes = 0
 
-    /** Trocas entre refreshes completos (0 = nunca). */
     @Volatile var fullRefreshEvery: Int = 6
     @Volatile var flashEnabled: Boolean = true
     @Volatile var flashMillis: Long = 60
@@ -35,19 +34,32 @@ open class GenericEinkController(private val scope: CoroutineScope) : EinkContro
         changes = 0
     }
 
+    override fun configure(fullRefreshEvery: Int, flashClean: Boolean) {
+        this.fullRefreshEvery = fullRefreshEvery
+        this.flashEnabled = flashClean
+    }
+
     override fun onContentChanged() {
         changes++
         if (fullRefreshEvery > 0 && changes >= fullRefreshEvery) {
             changes = 0
             fullRefresh()
+        } else {
+            partialRefresh()
         }
     }
+
+    protected open fun partialRefresh() = Unit
 
     override fun fullRefresh() {
         if (!flashEnabled) {
             view?.postInvalidate()
             return
         }
+        flashNow()
+    }
+
+    protected fun flashNow() {
         scope.launch(Dispatchers.Main) {
             _flash.value = true
             delay(flashMillis)

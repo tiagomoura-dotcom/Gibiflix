@@ -112,6 +112,9 @@ dependencies {
     implementation(libs.ktor.client.cio)
 
     implementation(libs.libarchive)
+    implementation(libs.hiddenapibypass)
+    // Chamado só por reflexão (OnyxEinkController).
+    implementation(libs.onyx.device)
 
     testImplementation(libs.junit)
 }
