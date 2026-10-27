@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Só a letra; a cor vem do tint. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="19dp"
+    android:height="30dp"
+    android:viewportWidth="190"
+    android:viewportHeight="300">
+    <group android:translateX="-161" android:translateY="-106">
+        <path
+            android:fillColor="#FF000000"
+            android:pathData="M351 201A95 95 0 0 0 161 201L161 311A95 95 0 0 0 351 311L351 254L262 254L262 311L295 311A39 39 0 0 1 217 311L217 201A39 39 0 0 1 295 201Z" />
+    </group>
+</vector>

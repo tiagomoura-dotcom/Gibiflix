@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Gibiflix</string>
+    <string name="wordmark">GIBIFLIX</string>
+
+    <!-- Navegação -->
+    <string name="nav_library">Biblioteca</string>
+    <string name="nav_share">Compartilhar</string>
+    <string name="nav_settings">Ajustes</string>
+    <string name="back">Voltar</string>
+
+    <!-- Biblioteca -->
+    <string name="library_search">Buscar</string>
+    <string name="library_import">Importar</string>
+    <string name="library_empty_title">Importe seu primeiro quadrinho</string>
+    <string name="library_empty_body">CBZ, CBR, CB7 ou PDF, de um arquivo, de uma pasta, de outro aparelho ou de um servidor OPDS.</string>
+    <string name="library_empty_button">Importar quadrinho</string>
+    <string name="profile_strip">%1$s detectado · perfil e-ink ativo</string>
+
+    <!-- Compartilhar -->
+    <string name="share_title">Compartilhar</string>
+    <string name="share_coming">Enviar e receber quadrinhos entre aparelhos chega numa próxima versão.</string>
+
+    <!-- Ajustes -->
+    <string name="settings_title">Ajustes</string>
+    <string name="settings_section_device">Aparelho</string>
+    <string name="settings_profile">Perfil do aparelho</string>
+    <string name="settings_diagnostics">Diagnóstico</string>
+    <string name="settings_diagnostics_hint">Dados do aparelho para enviar ao desenvolvimento</string>
+    <string name="settings_about">Sobre</string>
+    <string name="settings_version">Versão %1$s</string>
+    <string name="settings_licenses">Licenças das fontes</string>
+
+    <string name="profile_auto">Automático</string>
+    <string name="profile_auto_with">Automático (%1$s)</string>
+    <string name="profile_tablet">Tablet</string>
+    <string name="profile_eink_color">E-ink colorido</string>
+    <string name="profile_eink_mono">E-ink preto e branco</string>
+
+    <!-- Diálogo do primeiro uso no Onyx -->
+    <string name="onyx_dialog_title">Encontramos um Boox</string>
+    <string name="onyx_dialog_text">A tela dele é colorida ou preto e branco?</string>
+    <string name="onyx_dialog_color">Colorida</string>
+    <string name="onyx_dialog_mono">Preto e branco</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancelar</string>
+
+    <!-- Diagnóstico -->
+    <string name="diag_title">Diagnóstico</string>
+    <string name="diag_copy">Copiar</string>
+    <string name="diag_copied">Copiado</string>
+    <string name="diag_detected">Perfil detectado</string>
+    <string name="diag_in_use">Perfil em uso</string>
+    <string name="diag_resolution">Resolução</string>
+    <string name="diag_density">Densidade</string>
+    <string name="diag_app_version">Versão do app</string>
+    <string name="diag_android">Android</string>
+    <string name="diag_eink_controller">Controle e-ink</string>
+</resources>
