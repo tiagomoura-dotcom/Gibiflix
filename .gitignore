@@ -1,0 +1,31 @@
+# Gradle / Android
+.gradle/
+build/
+*/build/
+local.properties
+captures/
+.externalNativeBuild/
+.cxx/
+*.apk
+*.aab
+!gradle/wrapper/gradle-wrapper.jar
+
+# IDE
+.idea/
+*.iml
+.DS_Store
+Thumbs.db
+
+# Assinatura: NUNCA commitar
+*.jks
+*.keystore
+*.p12
+*.pem
+keystore.properties
+signing.properties
+
+# Arquivos de quadrinhos usados em testes locais
+*.cbz
+*.cbr
+*.cb7
+*.pdf
