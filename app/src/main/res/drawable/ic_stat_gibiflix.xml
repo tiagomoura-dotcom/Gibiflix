@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Ícone da barra de notificações: o G em branco. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="512"
+    android:viewportHeight="512">
+    <group android:pivotX="256" android:pivotY="256" android:scaleX="1.4" android:scaleY="1.4">
+        <path
+            android:fillColor="#FFFFFFFF"
+            android:pathData="M351 201A95 95 0 0 0 161 201L161 311A95 95 0 0 0 351 311L351 254L262 254L262 311L295 311A39 39 0 0 1 217 311L217 201A39 39 0 0 1 295 201Z" />
+    </group>
+</vector>

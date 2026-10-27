@@ -109,3 +109,21 @@ data class GibiflixDoc(
         const val COMIC_INFO = "ComicInfo.xml"
     }
 }
+
+/** Estado de preparação calculado a partir do documento. */
+enum class DocState { NEW, REVIEW, READY }
+
+object DocStats {
+    const val REVIEW_THRESHOLD = 0.7
+
+    fun isPrepared(p: PageInfo) = p.reviewed || p.confidence != null
+
+    fun needsReview(p: PageInfo) = !p.reviewed && (p.confidence ?: 1.0) < REVIEW_THRESHOLD
+
+    fun state(doc: GibiflixDoc): DocState = when {
+        doc.pages.isEmpty() || doc.pages.none(::isPrepared) -> DocState.NEW
+        doc.pages.any { isPrepared(it) && needsReview(it) } -> DocState.REVIEW
+        doc.pages.all(::isPrepared) -> DocState.READY
+        else -> DocState.NEW
+    }
+}

@@ -30,6 +30,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import app.gibiflix.R
 import app.gibiflix.container
+import app.gibiflix.ui.library.LibraryActions
 import app.gibiflix.ui.library.LibraryScreen
 import app.gibiflix.ui.settings.DiagnosticsScreen
 import app.gibiflix.ui.settings.OnyxConfirmDialog
@@ -41,6 +42,8 @@ enum class Tab { LIBRARY, SHARE, SETTINGS }
 /** Telas empilhadas por cima das abas. */
 sealed interface Route {
     data object Diagnostics : Route
+    data object Servers : Route
+    data class Editor(val comicId: String) : Route
 }
 
 class Navigator(initial: List<Route> = emptyList()) {
@@ -64,6 +67,8 @@ fun AppRoot() {
     if (top != null) {
         when (top) {
             Route.Diagnostics -> DiagnosticsScreen(onBack = { nav.pop() })
+            Route.Servers -> PlaceholderScreen(onBack = { nav.pop() })
+            is Route.Editor -> PlaceholderScreen(onBack = { nav.pop() })
         }
     } else {
         Scaffold(
@@ -73,7 +78,15 @@ fun AppRoot() {
         ) { padding ->
             Box(Modifier.fillMaxSize().padding(padding)) {
                 when (tab) {
-                    Tab.LIBRARY -> LibraryScreen(onOpenSettings = { tab = Tab.SETTINGS })
+                    Tab.LIBRARY -> LibraryScreen(
+                        LibraryActions(
+                            onRead = { id -> openComic(context, id) },
+                            onPrepare = { id -> openPrepare(context, nav, id) },
+                            onOpenSettings = { tab = Tab.SETTINGS },
+                            onImportDevice = { tab = Tab.SHARE },
+                            onImportOpds = { nav.push(Route.Servers) },
+                        )
+                    )
                     Tab.SHARE -> ShareScreen()
                     Tab.SETTINGS -> SettingsScreen(onOpenDiagnostics = { nav.push(Route.Diagnostics) })
                 }
@@ -113,5 +126,20 @@ private fun BottomBar(tab: Tab, onSelect: (Tab) -> Unit) {
                 colors = colors,
             )
         }
+    }
+}
+
+fun openComic(context: android.content.Context, id: String) {
+    android.widget.Toast.makeText(context, context.getString(app.gibiflix.R.string.coming_soon), android.widget.Toast.LENGTH_SHORT).show()
+}
+
+fun openPrepare(context: android.content.Context, nav: Navigator, id: String) {
+    nav.push(Route.Editor(id))
+}
+
+@Composable
+private fun PlaceholderScreen(onBack: () -> Unit) {
+    androidx.compose.foundation.layout.Column(Modifier.fillMaxSize()) {
+        app.gibiflix.ui.components.TopBar(stringResource(R.string.coming_soon), onBack = onBack)
     }
 }

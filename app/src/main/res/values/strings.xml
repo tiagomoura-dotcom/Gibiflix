@@ -56,4 +56,85 @@
     <string name="diag_app_version">Versão do app</string>
     <string name="diag_android">Android</string>
     <string name="diag_eink_controller">Controle e-ink</string>
+
+    <!-- Importação -->
+    <string name="channel_work">Importação e preparação</string>
+    <string name="channel_share">Compartilhar</string>
+    <string name="channel_reminder">Lembretes</string>
+    <string name="import_notification_title">Importando quadrinhos</string>
+    <string name="import_notification_progress">%1$d de %2$d · %3$s</string>
+    <plurals name="import_done">
+        <item quantity="one">%d quadrinho importado</item>
+        <item quantity="other">%d quadrinhos importados</item>
+    </plurals>
+    <string name="import_duplicate">%1$s já está na biblioteca (%2$s)</string>
+    <string name="import_failed">Não foi possível importar %1$s: %2$s</string>
+    <string name="import_files">Arquivos</string>
+    <string name="import_folder">Pasta inteira</string>
+    <string name="import_device">De outro aparelho</string>
+    <string name="import_opds">De um servidor OPDS</string>
+    <string name="import_progress">Importando %1$d de %2$d · %3$s</string>
+    <string name="import_receiving">Recebendo arquivo…</string>
+
+    <!-- Biblioteca: abas e lista -->
+    <string name="tab_reading">Lendo</string>
+    <string name="tab_all">Todos</string>
+    <string name="tab_series">Séries</string>
+    <string name="tab_collections">Coleções</string>
+    <string name="search_hint">Título, série, autor ou fala</string>
+    <string name="search_close">Fechar busca</string>
+    <string name="sort">Ordenar</string>
+    <string name="sort_recent_read">Lidos recentemente</string>
+    <string name="sort_recent_added">Adicionados recentemente</string>
+    <string name="sort_title">Título</string>
+    <string name="sort_series">Série e número</string>
+    <string name="continue_reading">Continuar lendo</string>
+    <string name="continue_button">Continuar</string>
+    <string name="continue_position">Página %1$d de %2$d · quadro %3$d de %4$d</string>
+    <string name="continue_position_page">Página %1$d de %2$d</string>
+    <string name="reading_empty">Nada em andamento. Abra um quadrinho em Todos.</string>
+    <string name="no_results">Nada encontrado.</string>
+    <string name="series_count">%1$d volumes · %2$d lidos</string>
+    <string name="series_next">Próximo não lido: %1$s</string>
+    <string name="series_all_read">Todos lidos</string>
+    <string name="collections_empty">Crie listas como “Para ler nas férias”.</string>
+    <string name="collection_new">Nova coleção</string>
+    <string name="collection_name">Nome da coleção</string>
+    <string name="collection_count">%d quadrinhos</string>
+    <string name="collection_rename">Renomear</string>
+    <string name="collection_delete">Excluir coleção</string>
+    <string name="create">Criar</string>
+    <string name="save">Salvar</string>
+    <string name="delete">Excluir</string>
+    <string name="close">Fechar</string>
+
+    <!-- Estados -->
+    <string name="status_new">Novo</string>
+    <string name="status_preparing">Preparando %d%%</string>
+    <string name="status_review">Revisar</string>
+    <string name="status_ready">Pronto</string>
+    <string name="status_read">Lido</string>
+
+    <!-- Ações -->
+    <string name="action_read">Ler</string>
+    <string name="action_prepare">Preparar quadros</string>
+    <string name="action_review">Revisar quadros</string>
+    <string name="action_edit">Editar informações</string>
+    <string name="action_collection">Adicionar à coleção</string>
+    <string name="action_mark_read">Marcar como lido</string>
+    <string name="action_mark_unread">Marcar como não lido</string>
+    <string name="action_export">Exportar</string>
+    <string name="action_delete">Excluir</string>
+    <string name="delete_confirm">Excluir “%1$s”? O pacote, o progresso e os marcadores deste quadrinho saem deste aparelho.</string>
+    <string name="exported">Exportado</string>
+
+    <!-- Editar informações -->
+    <string name="edit_title">Título</string>
+    <string name="edit_series">Série</string>
+    <string name="edit_number">Número</string>
+    <string name="direction">Direção de leitura</string>
+    <string name="direction_ltr">Ocidental →</string>
+    <string name="direction_rtl">Mangá ←</string>
+    <string name="pages_count">%d páginas</string>
+    <string name="coming_soon">Chega numa próxima versão</string>
 </resources>
