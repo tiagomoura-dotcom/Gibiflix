@@ -9,6 +9,7 @@ import app.gibiflix.device.DeviceProfileManager
 import app.gibiflix.eink.EinkControllerFactory
 import app.gibiflix.importer.ComicImporter
 import app.gibiflix.settings.SettingsRepository
+import app.gibiflix.share.SyncRepository
 import app.gibiflix.work.ImportCenter
 import app.gibiflix.work.PrepareScheduler
 import kotlinx.coroutines.CoroutineScope
@@ -29,6 +30,7 @@ class AppContainer(context: Context) {
     val library: LibraryRepository by lazy { LibraryRepository(db, files, packages) }
     val importer: ComicImporter by lazy { ComicImporter(appContext, files, db.comics(), packages, settings, deviceProfile) }
     val importCenter = ImportCenter(appContext)
+    val sync: SyncRepository by lazy { SyncRepository(appContext, db, files, settings) }
     val prepareScheduler: PrepareScheduler by lazy { PrepareScheduler(appContext) }
 }
 

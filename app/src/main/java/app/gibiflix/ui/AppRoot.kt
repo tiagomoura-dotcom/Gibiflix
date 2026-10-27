@@ -110,7 +110,7 @@ fun AppRoot() {
                             onImportOpds = { nav.push(Route.Servers) },
                         )
                     )
-                    Tab.SHARE -> ShareScreen()
+                    Tab.SHARE -> ShareScreen(startInSendMode = shareSend, onConsumedStart = { shareSend = false })
                     Tab.SETTINGS -> SettingsScreen(
                         SettingsRoutes(
                             diagnostics = { nav.push(Route.Diagnostics) },

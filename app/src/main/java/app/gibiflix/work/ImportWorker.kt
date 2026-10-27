@@ -46,7 +46,10 @@ class ImportWorker(context: Context, params: WorkerParameters) : CoroutineWorker
         inputData.getString(KEY_FOLDER)?.let { folder ->
             DocumentFile.fromTreeUri(applicationContext, Uri.parse(folder))?.let { collect(it, uris) }
         }
-        if (uris.isEmpty()) return Result.success()
+        if (uris.isEmpty()) {
+            inputData.getString(KEY_FOLDER)?.let { runCatching { c.sync.importSyncFromFolder(Uri.parse(it)) } }
+            return Result.success()
+        }
 
         runCatching { setForeground(foreground(0, uris.size, "")) }
         val results = mutableListOf<ImportOutcome>()
@@ -63,6 +66,12 @@ class ImportWorker(context: Context, params: WorkerParameters) : CoroutineWorker
         }
         center.update(null)
         center.report(results)
+        // Pasta exportada por outro aparelho: funde também o gibiflix-sync.json.
+        inputData.getString(KEY_FOLDER)?.let { folder ->
+            runCatching { c.sync.importSyncFromFolder(Uri.parse(folder)) }.getOrNull()?.let { (p, b) ->
+                if (p + b > 0) center.message(applicationContext.getString(R.string.share_synced, p + b))
+            }
+        }
         return Result.success(
             workDataOf(
                 KEY_IMPORTED to results.count { it is ImportOutcome.Imported },

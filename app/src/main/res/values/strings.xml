@@ -19,7 +19,6 @@
 
     <!-- Compartilhar -->
     <string name="share_title">Compartilhar</string>
-    <string name="share_coming">Enviar e receber quadrinhos entre aparelhos chega numa próxima versão.</string>
 
     <!-- Ajustes -->
     <string name="settings_title">Ajustes</string>
@@ -273,4 +272,41 @@
     <string name="hint_draw">Arraste na página para criar um quadro.</string>
     <string name="hint_join">Toque nos quadros a juntar e depois em Juntar de novo.</string>
     <string name="hint_split">Trace uma linha sobre o quadro para dividi-lo.</string>
+
+    <!-- Compartilhar -->
+    <string name="share_send">Enviar deste aparelho</string>
+    <string name="share_send_hint">Os outros aparelhos encontram este na rede Wi-Fi</string>
+    <string name="share_receive">Receber de outro aparelho</string>
+    <string name="share_receive_hint">Baixe quadrinhos e sincronize o progresso</string>
+    <string name="share_export">Exportar para pasta</string>
+    <string name="share_export_hint">Pacotes + gibiflix-sync.json (Syncthing, cabo USB…)</string>
+    <string name="share_import_folder">Importar de pasta</string>
+    <string name="share_import_folder_hint">Lê pacotes e o gibiflix-sync.json e junta com os daqui</string>
+    <string name="share_import_folder_started">Importando a pasta em segundo plano…</string>
+    <string name="share_choose_folder">Escolher a pasta</string>
+    <string name="select_all">Selecionar todos</string>
+    <string name="share_exported">%d quadrinho(s) exportado(s)</string>
+    <string name="share_sending">Compartilhando quadrinhos</string>
+    <string name="share_sending_hint">Outro aparelho pode receber enquanto a tela estiver aberta</string>
+    <string name="share_server_error">Não foi possível ligar o compartilhamento: %1$s</string>
+    <string name="share_visible_as">Visível na rede como “%1$s”</string>
+    <string name="share_code">Código para o outro aparelho:</string>
+    <string name="share_address">Endereço: %1$s</string>
+    <string name="share_keep_open">Deixe esta tela aberta até terminar.</string>
+    <string name="share_activity">%d pedidos atendidos</string>
+    <string name="share_searching">Procurando aparelhos com o Gibiflix aberto em “Enviar”…</string>
+    <string name="share_manual">Digitar o endereço</string>
+    <string name="share_enter_code">Código mostrado em %1$s</string>
+    <string name="share_wrong_code">Código errado. Confira no outro aparelho.</string>
+    <string name="share_connect_failed">Não foi possível conectar: %1$s</string>
+    <string name="share_download_selected">Baixar selecionados</string>
+    <string name="share_sync">Sincronizar progresso</string>
+    <string name="share_group_new">Novos</string>
+    <string name="share_group_updated">Atualizados</string>
+    <string name="share_group_have">Já tenho</string>
+    <string name="share_item_info">%1$d págs · %2$d preparadas · %3$d revisadas · %4$d MB</string>
+    <string name="share_item_done">Recebido</string>
+    <string name="share_already_have">Já estava aqui</string>
+    <string name="share_download_done">%d quadrinho(s) recebido(s).</string>
+    <string name="share_synced">Progresso e marcadores sincronizados (%d mudanças).</string>
 </resources>
