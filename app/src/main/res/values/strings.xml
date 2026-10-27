@@ -137,4 +137,22 @@
     <string name="direction_rtl">Mangá ←</string>
     <string name="pages_count">%d páginas</string>
     <string name="coming_soon">Chega numa próxima versão</string>
+
+    <!-- Leitor -->
+    <string name="reader_loading">Carregando…</string>
+    <string name="reader_error">Não foi possível abrir este quadrinho.</string>
+    <string name="reader_page_of">Página %1$d / %2$d</string>
+    <string name="reader_panel_of">Quadro %1$d / %2$d</string>
+    <string name="reader_hint">VOL + próximo · VOL − anterior</string>
+    <string name="reader_bookmark">Marcador</string>
+    <string name="reader_mode_panel">Modo: quadro a quadro</string>
+    <string name="reader_mode_page">Modo: página inteira</string>
+    <string name="reader_brightness_down">Imagem mais escura</string>
+    <string name="reader_brightness_up">Imagem mais clara</string>
+    <string name="reader_read_text">Ler texto</string>
+    <string name="reader_exit">Sair</string>
+    <string name="reader_end_title">Fim!</string>
+    <string name="reader_end_text">Você terminou %1$s.</string>
+    <string name="reader_back_library">Voltar à biblioteca</string>
+    <string name="reader_stay">Ficar aqui</string>
 </resources>

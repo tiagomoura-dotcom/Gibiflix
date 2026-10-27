@@ -129,8 +129,8 @@ private fun BottomBar(tab: Tab, onSelect: (Tab) -> Unit) {
     }
 }
 
-fun openComic(context: android.content.Context, id: String) {
-    android.widget.Toast.makeText(context, context.getString(app.gibiflix.R.string.coming_soon), android.widget.Toast.LENGTH_SHORT).show()
+fun openComic(context: android.content.Context, id: String, page: Int = -1, panel: Int = -1) {
+    context.startActivity(app.gibiflix.reader.ReaderActivity.intent(context, id, page, panel))
 }
 
 fun openPrepare(context: android.content.Context, nav: Navigator, id: String) {

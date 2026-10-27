@@ -56,10 +56,6 @@ jobs:
             echo "::warning::Secret GIBIFLIX_KEYSTORE_BASE64 não cadastrado: este APK sai com chave de debug e NÃO vai atualizar por cima das próximas versões."
           fi
 
-      - name: Diagnóstico de dependências (temporário)
-        continue-on-error: true
-        run: ./gradlew :app:dependencies --configuration releaseRuntimeClasspath | grep -iE -A40 'onyx' | head -80
-
       - name: Testes
         run: ./gradlew :core:test testDebugUnitTest --stacktrace
 
